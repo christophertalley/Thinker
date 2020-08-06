@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Auth0Provider } from "@auth0/auth0-react";
+import history from "./utils/history"
+
+
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain="thinker-dev.us.auth0.com"
+    clientId="CkkxQkDcBzCSLbdYGnhOZeJXEOWOz5i2"
+    redirectUri={onRedirectCallback}
+  >
     <App />
-  </React.StrictMode>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 
