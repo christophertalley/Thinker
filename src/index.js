@@ -4,8 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Auth0Provider } from "@auth0/auth0-react";
+import config from "./auth_config.json";
 import history from "./utils/history"
 
+console.log(config);
 
 const onRedirectCallback = appState => {
   history.push(
@@ -15,16 +17,17 @@ const onRedirectCallback = appState => {
   );
 };
 
-
 ReactDOM.render(
   <Auth0Provider
-    domain="thinker-dev.us.auth0.com"
-    clientId="CkkxQkDcBzCSLbdYGnhOZeJXEOWOz5i2"
-    redirectUri={onRedirectCallback}
+    domain={config.domain}
+    clientId={config.clientId}
+    redirectUri={window.location.origin}
+    audience={config.audience}
+    onRedirectCallback={onRedirectCallback}
   >
     <App />
   </Auth0Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

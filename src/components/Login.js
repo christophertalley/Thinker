@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import IconButton from '@material-ui/core/IconButton';
 
-const LoginButton = () => {
+const Login = () => {
     const { loginWithRedirect } = useAuth0();
 
     return (
@@ -14,4 +14,4 @@ const LoginButton = () => {
     )
 };
 
-export default LoginButton;
+export default Login;
