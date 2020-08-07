@@ -1,6 +1,6 @@
 import React from 'react';
+import '../styles/custom-drawer.css'
 import PropTypes from "prop-types";
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -63,6 +63,7 @@ export default function CustomDrawer() {
     const handleChangeIndex = (index) => {
         setValue(index);
       };
+
     return (
         <>
             <Tabs
@@ -73,7 +74,7 @@ export default function CustomDrawer() {
                 onChange={handleChange}
                 style={{marginTop:"1em"}}
             >
-                <Tab style={{borderRadius:"1rem"}} label="Notes" />
+                <Tab style={{borderRadius:"1rem",}} label="Notes" />
                 <Tab label="Schedule" />
                 <Tab label="Planner" />
             </Tabs>
