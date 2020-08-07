@@ -15,9 +15,9 @@ export default function App() {
     );
   } else {
     return (
-      <div className="App">
+      <div style={{backgroundColor:"#b0bec5", height:"100vh", width:"100vw"}} className="App">
       <Router history={history}>
-        <header>
+        <header style={{padding:"0px"}}>
           <Navbar/>
         </header>
         <Switch>

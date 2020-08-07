@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { makeStyles, AppBar } from '@material-ui/core';
 
 const useStyles = makeStyles(()=>({
     drawer: {
@@ -14,7 +17,40 @@ const useStyles = makeStyles(()=>({
         flexDirection:"row",
         justifyContent:"space-between"
     }
-}))
+}));
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`full-width-tabpanel-${index}`}
+        aria-labelledby={`full-width-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+
+  function a11yProps(index) {
+    return {
+      id: `full-width-tab-${index}`,
+      'aria-controls': `full-width-tabpanel-${index}`,
+    };
+  }
 
 export default function CustomDrawer() {
     const classes = useStyles();
@@ -24,19 +60,33 @@ export default function CustomDrawer() {
         setValue(newValue);
     };
 
+    const handleChangeIndex = (index) => {
+        setValue(index);
+      };
     return (
-        <Paper className={classes.drawer} square elevation={3}>
-        <Tabs
-            value={value}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleChange}
-            aria-label="disabled tabs example"
-        >
-            <Tab label="Notes" />
-            <Tab label="Schedule" />
-            <Tab label="Planner" />
-        </Tabs>
-        </Paper>
+        <>
+            <Tabs
+                value={value}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                onChange={handleChange}
+                style={{marginTop:"1em"}}
+            >
+                <Tab style={{borderRadius:"1rem"}} label="Notes" />
+                <Tab label="Schedule" />
+                <Tab label="Planner" />
+            </Tabs>
+            <AppBar/>
+            <TabPanel value={value} index={0}>
+                Page One
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                Page Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                Page Three
+            </TabPanel>
+        </>
     );
 }
