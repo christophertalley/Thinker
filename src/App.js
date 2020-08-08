@@ -1,12 +1,31 @@
 import React from 'react';
 import { Switch, Route, Router } from 'react-router-dom';
+import { api } from "./config";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from './utils/history';
 import Navbar from './components/Navbar';
 import CustomDrawer from './components/CustomDrawer';
 
 export default function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, user, setUser, getAccessTokenSilently } = useAuth0();
+  const postUserInfo = async () => {
+      const token = await getAccessTokenSilently();
+      const data = {username: user.nickname};
+
+      const res = await fetch(`${api}/users`, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+          }
+      })
+      const apiRes = await res.json();
+      // await setUser({...user, userId: apiRes.userId});
+  }
+  if (user) {
+    postUserInfo();
+  }
   if (isLoading) {
     return (
       <div>

@@ -1,5 +1,6 @@
 
 {
     "domain": "thinker-dev.us.auth0.com",
-    "clientId": "CkkxQkDcBzCSLbdYGnhOZeJXEOWOz5i2"
+    "clientId": "CkkxQkDcBzCSLbdYGnhOZeJXEOWOz5i2",
+    "audience": "https://thinker-api/"
 }

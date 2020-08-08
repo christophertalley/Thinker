@@ -32,24 +32,23 @@ export const Auth0Provider = ({
             const isAuthenticated = await auth0FromHook.isAuthenticated();
 
             setIsAuthenticated(isAuthenticated);
-            setUser(user);
 
-            // if (isAuthenticated) {
-            //     const user = await auth0FromHook.getUser();
-            //     const token = await auth0FromHook.getTokenSilently();
-            //     const data = {username: user.nickname};
+            if (isAuthenticated) {
+                const user = await auth0FromHook.getUser();
+                const token = await auth0FromHook.getTokenSilently();
+                const data = {username: user.nickname};
 
-            //     const res = await fetch(`${api}/users`, {
-            //         method: "POST",
-            //         body: JSON.stringify(data),
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //             Authorization: `Bearer ${token}`
-            //         }
-            //     })
-            //     const apiRes = await res.json();
-                // setUser({...user, userId: apiRes.userId});
-            // }
+                const res = await fetch(`${api}/users`, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const apiRes = await res.json();
+                setUser({...user, userId: apiRes.userId});
+            }
             setLoading(false);
 
         };
